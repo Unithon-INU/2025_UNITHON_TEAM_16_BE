@@ -1,7 +1,4 @@
 package com.example.domain.like;
-
-import com.example.domain.like.PostLikeId;
-
 import com.example.domain.post.Post;
 import com.example.domain.user.User;
 import jakarta.persistence.*;
