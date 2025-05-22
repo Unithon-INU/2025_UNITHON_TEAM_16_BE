@@ -1,23 +1,29 @@
 package com.example.domain.chat;
 
-import com.example.domain.chat.Conversation;
 import com.example.domain.user.User;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.time.LocalDateTime;
 
+@EntityListeners(EntityListeners.class)
 @Entity
 @Getter
 public class Message {
 
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long messageId;
-    private String originalText;
-    private LocalDateTime createdAt;
-    private Conversation converstation;
+
+    @Column(nullable = false)
+    private Long originalText;
+
+    private LocalDateTime sentAt;
+
+    @ManyToOne
+    @JoinColumn(name = "conversation")
+    private Conversation conversation;
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
     private User user;
 }

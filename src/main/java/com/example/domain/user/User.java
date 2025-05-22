@@ -25,12 +25,16 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany
-//    @JoinColumn(name = "postId")
-//    private List<Post> posts = new ArrayList<>();
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "postId")
+    private List<Post> posts = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "languageId")
     private Language language;
 
+    @OneToOne
+    @JoinColumn(name = "countryId")
     private Country country;
 
 

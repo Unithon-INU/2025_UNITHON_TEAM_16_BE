@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public class Post {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long postId;
 
     // ERD에 추가해야 함
     @Column(nullable = false)
@@ -29,8 +29,10 @@ public class Post {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-//    @OneToOne(mappedBy = "post", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-//    private PostTranslation postTranslation;
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "userId")
     private User user;
+
+    // 번역된 게시글은 굳이 연관관계 필요없을 것 같음.
+    // 서비스단에서 게시글 id랑 언어 id로 조회하는 게 훨씬 나을 것 같음.
 }
