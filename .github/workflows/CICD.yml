@@ -68,34 +68,3 @@ jobs:
         with:
           ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
 
-      - name: Deploy to EC2
-        env:
-          IMAGE: ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest
-          HOST:  ${{ secrets.EC2_HOST }}
-          PORT:  ${{ secrets.EC2_SSH_PORT }}
-          USER:  ${{ secrets.EC2_USER }}
-          SPRING_DATASOURCE_URL:       ${{ secrets.SPRING_DATASOURCE_URL }}
-          SPRING_DATASOURCE_USERNAME:  ${{ secrets.SPRING_DATASOURCE_USERNAME }}
-          SPRING_DATASOURCE_PASSWORD:  ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
-          JWT_SECRET:                  ${{ secrets.JWT_SECRET }}
-          JWT_EXPIRE_SECONDS:          ${{ secrets.JWT_EXPIRE_SECONDS }}
-          SPRING_PROFILES_ACTIVE:      prod
-
-        run: |
-          ssh -o StrictHostKeyChecking=no -p $PORT $USER@$HOST << EOF
-            echo "Pulling image..."
-            sudo docker pull $IMAGE
-
-            echo "Stopping old container (if any)..."
-            sudo docker stop spring-server || true
-            sudo docker rm   spring-server || true
-
-            echo "Starting new container..."
-            sudo docker run -d \
-              --name spring-server \
-              -p 80:8080 -p 443:8443 \
-              $IMAGE
-
-            echo "Cleaning up unused images..."
-            sudo docker image prune -f
-          EOF
