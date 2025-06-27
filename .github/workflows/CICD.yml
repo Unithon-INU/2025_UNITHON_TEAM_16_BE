@@ -51,7 +51,8 @@ jobs:
             | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
       - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest .
+        run: |
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest .
 
       - name: Push to Docker Hub
         run: |
