@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - eunjun
 
 jobs:
   build-and-push:
