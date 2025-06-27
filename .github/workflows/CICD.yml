@@ -46,18 +46,17 @@ jobs:
           ./gradlew clean bootJar --no-daemon
 
       - name: Log in to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" \
-            | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build Docker image
-        env:
-          DOCKER_BUILDKIT: 0
-        run: docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest .
-
-      - name: Push to Docker Hub
-        run: |
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .                           # 빌드 컨텍스트
+          push: true                          # 빌드 후 바로 푸시
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest
 
   deploy:
     needs: build-and-push
