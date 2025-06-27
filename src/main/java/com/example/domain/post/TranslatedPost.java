@@ -25,4 +25,13 @@ public class TranslatedPost {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "languageId")
     private Language language;
+
+    public TranslatedPost(Post post, Language language, String translatedTitle, String translatedText) {
+        this.post = post;
+        this.language = language;
+        this.translatedTitle = translatedTitle;
+        this.translatedText = translatedText;
+    }
 }
+
+

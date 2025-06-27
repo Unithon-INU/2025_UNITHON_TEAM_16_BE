@@ -1,0 +1,22 @@
+# Git & IDE
+.git
+.gitignore
+*.iml
+.idea
+.vscode
+.DS_Store
+
+# Build
+build/
+.gradle/
+
+# Logs
+*.log
+
+# Env & Config
+.env
+*.yml
+!application-prod.yml
+
+# Test
+src/test/
