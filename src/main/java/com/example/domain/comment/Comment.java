@@ -3,6 +3,7 @@ package com.example.domain.comment;
 import com.example.domain.post.Post;
 import com.example.domain.user.User;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -13,13 +14,14 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @Entity
 @Getter
+@Builder
 public class Comment {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long commentId;
 
     @Column(nullable = false)
-    private String originalText;
+    private String content;
 
     @CreatedDate
     private LocalDateTime createdAt;
