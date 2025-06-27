@@ -31,6 +31,10 @@ jobs:
           jwt.secret:                  ${{ secrets.JWT_SECRET }}
           jwt.expire-seconds:          ${{ secrets.JWT_EXPIRE_SECONDS }}
 
+      - name: Debug secrets
+        run: echo ${{ secrets.DOCKERHUB_USERNAME }} 
+
+
       - name: Cache Gradle
         uses: actions/cache@v3
         with:
