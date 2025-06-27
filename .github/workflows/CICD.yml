@@ -52,7 +52,8 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest .
+          docker buildx build --load \
+            -t ${{ secrets.DOCKERHUB_USERNAME }}/hireu:latest .
 
       - name: Push to Docker Hub
         run: |
