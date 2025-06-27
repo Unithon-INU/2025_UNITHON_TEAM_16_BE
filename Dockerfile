@@ -1,5 +1,5 @@
 # ─── 1) Build 스테이지 ───────────────────
-FROM gradle:7.6-jdk21 AS builder
+FROM gradle:7.6-jdk17 AS builder
 WORKDIR /app
 COPY . .
 RUN gradle clean bootJar --no-daemon
