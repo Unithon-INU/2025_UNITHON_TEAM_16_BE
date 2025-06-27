@@ -31,7 +31,7 @@ public class PostController {
     private final LanguageRepository languageRepository;
 
 
-    @GetMapping("/posts/{postId}/translated")
+    @GetMapping("/{postId}/translated")
     public ResponseEntity<PostTranslationResponseDto> getTranslatedPost(
             @PathVariable Long postId,
             @RequestParam String lang

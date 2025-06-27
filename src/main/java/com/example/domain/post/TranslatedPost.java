@@ -3,9 +3,11 @@ package com.example.domain.post;
 import com.example.domain.language.Language;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@NoArgsConstructor
 public class TranslatedPost {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

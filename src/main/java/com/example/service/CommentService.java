@@ -6,23 +6,19 @@ import com.example.domain.user.User;
 import com.example.repository.CommentRepository;
 import com.example.repository.PostRepository;
 import com.example.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CommentService {
 
     private final CommentRepository commentRepo;
     private final PostRepository postRepo;
     private final UserRepository userRepo;
-
-    public CommentService(CommentRepository commentRepo, PostRepository postRepo, UserRepository userRepo) {
-        this.commentRepo = commentRepo;
-        this.postRepo = postRepo;
-        this.userRepo = userRepo;
-    }
 
     public List<Comment> getComments(Long postId) {
         Post post = postRepo.findById(postId).orElseThrow();
@@ -35,7 +31,7 @@ public class CommentService {
         Comment comment = Comment.builder()
                 .post(post)
                 .user(user)
-                .content(content)
+                .originalText(content)
                 .createdAt(LocalDateTime.now())
                 .build();
         return commentRepo.save(comment);
