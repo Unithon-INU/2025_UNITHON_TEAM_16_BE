@@ -14,4 +14,7 @@ public class Language {
     @Column(nullable = false, unique = true)
     private String languageName;
 
+    @Column(nullable = false, unique = true)
+    private String code;
+
 }

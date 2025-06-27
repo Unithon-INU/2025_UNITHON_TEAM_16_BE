@@ -43,6 +43,10 @@ public class User {
     @JoinColumn(name = "countryId")
     private Country country;
 
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
 
 
 
